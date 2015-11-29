@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- I used https://github.com/fullcalendar/fullcalendar
+    100% of my calendar including hooking it up to Google Calendar
+    is simply invoking elements of FullCalendar -->
+  <title>FullCalendar</title>
+  <link rel='stylesheet' href='css/fullcalendar.css' />
+  <script src='lib/jquery.min.js'></script>
+  <script src='lib/moment.min.js'></script>
+  <script src='js/fullcalendar.js'></script>
+  <script src='js/gcal.js'></script>
+
+  <script>
+    $(document).ready(function() {
+      // page is now ready, initialize the calendar...
+      $('#calendar').fullCalendar({
+        googleCalendarApiKey: 'AIzaSyCPgGMEB-xOSzfn1bJBTMiU6xdh7iZxJrM',
+        events: {
+          googleCalendarId: 'pdacluuvjoth22h9moif9v8vto@group.calendar.google.com'
+        },
+        customButtons: {
+          appointmentButton: {
+            text: 'Email a meeting request',
+            click: function() {
+              // Lots of places showed how to prepopulate mailto. I used http://www.zaposphere.com/html-email-links-code/
+              // I found the correct code for crlf at -  http://www.cubetoon.com/2008/how-to-enter-line-break-into-mailto-body-command/
+              var mail = "mailto:Philip19Miller@gmail.com?subject=Video%20meeting%20request&body=Date:%20%0D%0A%0D%0ATime:%20";
+              var a = document.createElement('a');
+              a.href = mail;
+              document.body.appendChild(a); // Add to the DOM
+              a.click();
+              document.body.removeChild(a); // Remove it back
+            }
+          }
+        },
+        header: {
+          left: ' appointmentButton',
+          center: 'prev, title, next',
+          right: 'month,agendaWeek,agendaDay,today'
+        }
+
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <div id='calendar'></div>
+</body>
+
+</html>
